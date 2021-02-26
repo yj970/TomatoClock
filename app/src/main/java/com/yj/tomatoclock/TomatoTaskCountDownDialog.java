@@ -126,6 +126,7 @@ public class TomatoTaskCountDownDialog extends Dialog {
                 mMediaPlayer.prepareAsync();
             } catch (IOException e) {
                 e.printStackTrace();
+                ToastUtils.showLong(e.getMessage());
             }
         }
     }
