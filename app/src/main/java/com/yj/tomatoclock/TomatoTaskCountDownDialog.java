@@ -4,12 +4,15 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.CountDownTimer;
 import android.os.Vibrator;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -79,6 +82,35 @@ public class TomatoTaskCountDownDialog extends Dialog {
 
         setListener();
         mBinding.tvCountDown.setClickable(false);
+        startForegroundService();
+    }
+
+    private void startForegroundService() {
+        //启动服务
+        if (!ForegroundService.serviceIsLive) {
+            // Android 8.0使用startForegroundService在前台启动新服务
+            Intent mForegroundService = new Intent(getContext(), ForegroundService.class);
+            mForegroundService.putExtra("tomatoTaskName", tomatoTask.tomatoTaskName);
+
+            SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
+            long awakenTime = System.currentTimeMillis() + timeToStamp(tomatoTask.countDownTime);
+            String strAwakenTime = formatter.format(awakenTime);
+            mForegroundService.putExtra("awakenTime", strAwakenTime);
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                getContext().startForegroundService(mForegroundService);
+            } else {
+                getContext().startService(mForegroundService);
+            }
+        } else {
+            Toast.makeText(getContext(), "前台服务正在运行中...", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void stopForegroundService() {
+        //停止服务
+        Intent mForegroundService = new Intent(getContext(), ForegroundService.class);
+        getContext().stopService(mForegroundService);
     }
 
     private void voice() {
@@ -94,6 +126,7 @@ public class TomatoTaskCountDownDialog extends Dialog {
                 mMediaPlayer.prepareAsync();
             } catch (IOException e) {
                 e.printStackTrace();
+                ToastUtils.showLong(e.getMessage());
             }
         }
     }
@@ -130,6 +163,7 @@ public class TomatoTaskCountDownDialog extends Dialog {
     private void cancelAll() {
         cancelVibrate();
         cancelVoice();
+        stopForegroundService();
     }
 
     private void setListener() {
