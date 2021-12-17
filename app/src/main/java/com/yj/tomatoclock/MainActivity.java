@@ -28,6 +28,9 @@ public class MainActivity extends AppCompatActivity {
     String b;
     String c;
     String ef;
+    String cc;
+
+    String dd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
 
         updateView();
     }
+
+    private void fun1(){}
 
     private void showConfirmDelete(TomatoTask t, List<TomatoTask> tomatoTaskList) {
         new AlertDialog.Builder(this).setMessage("确定要删除这个番茄钟任务吗？")
