@@ -24,6 +24,10 @@ import dev.utils.app.toast.ToastUtils;
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding mBinding;
     private TomatoTaskAdapter mAdapter;
+    String a;
+    String b;
+    String c;
+    String ef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
