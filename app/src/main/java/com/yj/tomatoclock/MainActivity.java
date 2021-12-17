@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding mBinding;
     private TomatoTaskAdapter mAdapter;
     String a;
+    String b;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
