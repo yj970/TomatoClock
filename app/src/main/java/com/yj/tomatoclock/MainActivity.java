@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     String a;
     String b;
     String c;
+    String ef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
