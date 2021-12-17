@@ -19,7 +19,7 @@ import java.util.List;
 public class SelectVoiceActivity extends AppCompatActivity {
     private static final String TAG = "SelectVoiceActivity";
     private ActivitySelectVoiceBinding mBinding;
-
+    String d;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
