@@ -61,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         updateView();
-        1
     }
 
     private void showConfirmDelete(TomatoTask t, List<TomatoTask> tomatoTaskList) {
